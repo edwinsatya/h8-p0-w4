@@ -2,50 +2,64 @@
 
 function shoppingTime(memberId, money) {
     // you can only write your code here!
-    var listBarang = [
-        ['Sepatu Stacattu', 1500000],
-        ['Baju Zoro', 500000],
-        ['Baju H&N', 250000],
-        ['Sweater Uniklooh', 175000],
-        ['Casing Handphone', 50000]
-    ];
-
     var result = {};
-    
-    if ((memberId && money) === undefined || memberId.length === 0) {
+    var listSale = [
+       {
+            barang: 'Sepatu Stacattu',
+            harga: 1500000,
+        },
+        {
+            barang: 'Baju Zoro',
+            harga: 500000,
+        },
+        {
+            barang: 'Baju H&N',
+            harga: 250000,
+        },
+        {
+            barang: 'Sweater Uniklooh',
+            harga: 175000,
+        },
+        {
+            barang: 'Casing Handphone',
+            harga: 50000,
+        },
+    ]
+   
+    if (memberId === '' || money === undefined) {
         return 'Mohon maaf, toko X hanya berlaku untuk member saja';
     } else {
-        var uangAda = false;
-        loopingListBarang:
-        for (var i = 0; i < listBarang.length; i++) {
-            if (money < listBarang[i][1]) {
-                continue loopingListBarang;
-            } else {
+        var uangAda;
+        for (var i = 0; i < listSale.length; i++) {
+            if (money >= listSale[i].harga) {
                 uangAda = true;
+            } 
+            if (uangAda) {
+                break;
             }
         }
-    }
-    if (uangAda) {
-        var uangCukup = true;
+        if (!uangAda) {
+            return 'Mohon maaf, uang tidak cukup';
+        }
         result.memberId = memberId;
-        result.money = money
-        var listPurchased = [];
+        result.money = money;
+        var listPembelian = [];
+        var uangCukup = true;
         while (uangCukup) {
-            for (var i = 0; i < listBarang.length; i++) {
-                if (money - listBarang[i][1] >= 0) {
-                    listPurchased.push(listBarang[i]);
-                    money -= listBarang[i][1]
+            for (var j = 0; j < listSale.length; j++) {
+                if (money >= listSale[j].harga) {
+                    listPembelian.push(listSale[j].barang);
+                    money = money - listSale[j].harga;
                 } else {
                     continue;
                 }
             }
             uangCukup = false;
         }
-        result.push(listPurchased);
-    } else {
-        return 'Mohon maaf, uang tidak cukup'
+        result.listPurchased = listPembelian;
+        result.changeMoney = money;
+        return result;
     }
-    return result;  
 };
   
   // TEST CASES
