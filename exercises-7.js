@@ -1,5 +1,5 @@
 //Logic Challenge - Mengurutkan Abjad
-
+//cara dengan logic
 function urutkanAbjad(str) {
     // you can only write your code here!
     var alphabet = 'abcdefghijklmnopqrstuvwxyz';
@@ -14,7 +14,12 @@ function urutkanAbjad(str) {
     }
     return result;
 };
-  
+//cara dengan built in function
+function urutkanAbjad(str) {
+    // you can only write your code here!
+    return str.split('').sort().join('');
+};
+
   // TEST CASES
   console.log(urutkanAbjad('hello')); // 'ehllo'
   console.log(urutkanAbjad('truncate')); // 'acenrttu'
